@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from "react";
-import type {Student} from "@/types/types.ts";
+import type {Status, Student} from "@/types/types.ts";
 import {getFetchUrl} from "@/utils/getFetchUrl.ts";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.tsx";
 import {Search, User, UserCheck, Users} from "lucide-react";
@@ -33,17 +33,66 @@ export default function Students() {
         fetchStudents();
     }, [])
 
+
+    const updateStudent = async (student: Student) => {
+        await fetch(getFetchUrl("/api/students/" + student.edufsUsername), {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(student),
+        })
+    }
+
+    const handleUpdateAssignment = (studentId: string, stopId: number, newStatus: Status) => {
+        let updatedStudent: Student | null = null;
+        setStudents((prevStudents) => {
+            return prevStudents.map((student) => {
+                if (student.edufsUsername !== studentId) return student;
+                updatedStudent = {
+                    ...student,
+                    studentAssignments: student.studentAssignments.map((assignment) =>
+                        assignment.stopId === stopId ? { ...assignment, status: newStatus } : assignment
+                    ),
+                };
+                return updatedStudent;
+            });
+        });
+        if (updatedStudent) {
+            updateStudent(updatedStudent).then();
+        }
+    };
+
+
+    const handleDeleteAssignment = (studentId: string, stopId: number) => {
+        let updatedStudent: Student | null = null;
+        setStudents((prevStudents) => {
+            return prevStudents.map((student) => {
+                if (student.edufsUsername !== studentId) return student;
+                updatedStudent = {
+                    ...student,
+                    studentAssignments: student.studentAssignments.filter((assignment) => assignment.stopId !== stopId),
+                };
+                return updatedStudent;
+            });
+        });
+        if (updatedStudent) {
+            updateStudent(updatedStudent).then();
+        }
+    }
+
+    // Categorize students based on assignment count
     const categorizedStudents = useMemo(() => {
+        if (isLoading) {
+            return { noAssignments: [], oneAssignment: [], multipleAssignments: [] }
+        }
+
         const noAssignments = students.filter((s) => s.studentAssignments.length === 0)
         const oneAssignment = students.filter((s) => s.studentAssignments.length === 1)
         const multipleAssignments = students.filter((s) => s.studentAssignments.length > 1)
 
         return { noAssignments, oneAssignment, multipleAssignments }
-    }, [students])
-
-    if (isLoading) {
-        return <div className="text-center py-6">Loading students...</div>
-    }
+    }, [students, isLoading])
 
     return (
         <div className="container mx-auto py-4 px-4 sm:py-6 space-y-4 sm:space-y-6">
@@ -152,6 +201,7 @@ export default function Students() {
                                 classFilter={classFilter}
                                 departmentFilter={departmentFilter}
                                 isLoading={isLoading}
+                                showAssignmentDetails={false}
                             />
                         </CardContent>
                     </Card>
@@ -170,6 +220,9 @@ export default function Students() {
                                 classFilter={classFilter}
                                 departmentFilter={departmentFilter}
                                 isLoading={isLoading}
+                                showAssignmentDetails={true}
+                                onUpdateAssignment={handleUpdateAssignment}
+                                onDeleteAssignment={handleDeleteAssignment}
                             />
                         </CardContent>
                     </Card>
@@ -188,6 +241,9 @@ export default function Students() {
                                 classFilter={classFilter}
                                 departmentFilter={departmentFilter}
                                 isLoading={isLoading}
+                                showAssignmentDetails={false}
+                                onUpdateAssignment={handleUpdateAssignment}
+                                onDeleteAssignment={handleDeleteAssignment}
                             />
                         </CardContent>
                     </Card>

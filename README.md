@@ -1,54 +1,75 @@
-# React + TypeScript + Vite
+# HTL Leonding Dashboard - "Tag der offenen Tür"
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
+This project is a React + TypeScript dashboard designed to manage and configure the "Tag der offenen Tür" event for HTL Leonding. It provides tools for organizing student assignments, managing event stops, and categorizing participants.
 
-Currently, two official plugins are available:
+## Features
+- **Student Management**: Add, update, and delete student assignments.
+- **Event Configuration**: Organize stops and assignments for the event.
+- **Categorization**: Automatically categorize students based on their assignments.
+- **Responsive Design**: Optimized for both desktop and mobile devices.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies Used
+- **React**: Frontend framework for building user interfaces.
+- **TypeScript**: Strongly typed programming language for better code quality.
+- **Vite**: Fast development environment and build tool.
+- **CSS**: Custom styles for the dashboard.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Project Structure
+```
+src/
+  assets/         # Static assets like images
+  components/     # Reusable UI components
+    global/       # Global utilities like theme provider
+    pages/        # Page-specific components (e.g., students.tsx)
+    ui/           # UI elements like buttons, tables, and dialogs
+  hooks/          # Custom React hooks
+  lib/            # Utility functions
+  styles/         # Global CSS styles
+  types/          # TypeScript type definitions
+  utils/          # Helper functions
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/HTL-Leonding-Dashboard.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd HTL-Leonding-Dashboard
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Development
+Start the development server:
+```bash
+npm run dev
 ```
+
+### Build
+Create a production build:
+```bash
+npm run build
+```
+
+### Linting
+Run ESLint:
+```bash
+npm run lint
+```
+
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+## License
+This project is licensed under the MIT License.

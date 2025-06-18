@@ -1,24 +1,22 @@
 "use client"
 
-import type { StopItem, StopGroup } from "@/app/page"
+import type { Stop, StopGroup } from "@/types/types.ts"
 import { Card, CardContent } from "@/components/ui/card"
 import { Package, Layers } from "lucide-react"
 
 interface DragItemProps {
-    item: StopItem | StopGroup
-    isDragging?: boolean
-    isMobile?: boolean
+    item: (Stop & { type: "stop" }) | (StopGroup & { type: "group" })
 }
 
-export function DragItem({ item, isDragging = false, isMobile = false }: DragItemProps) {
+export function DragItem({ item }: DragItemProps) {
     if (item.type === "group") {
         return (
-            <Card className="bg-gradient-to-br from-accent-100 to-accent-200 border-accent-300 shadow-2xl drag-overlay max-w-md">
+            <Card className="bg-card border border-border shadow-2xl drag-overlay max-w-md">
                 <CardContent className="p-4">
                     <div className="flex items-start gap-3">
                         <Layers className="w-5 h-5 text-accent-700 mt-0.5" />
                         <div>
-                            <h3 className="font-semibold text-surface-900 text-sm">{item.title}</h3>
+                            <h3 className="font-semibold text-surface-900 text-sm">{item.name}</h3>
                             <p className="text-xs text-surface-600 mt-1 line-clamp-2">{item.description}</p>
                         </div>
                     </div>
@@ -28,10 +26,10 @@ export function DragItem({ item, isDragging = false, isMobile = false }: DragIte
     }
 
     return (
-        <div className="bg-white border border-surface-300 rounded-lg p-3 shadow-2xl drag-overlay max-w-xs">
+        <div className="bg-card border border-border rounded-lg p-3 shadow-2xl drag-overlay max-w-xs">
             <div className="flex items-center gap-2">
                 <Package className="w-4 h-4 text-brand-600" />
-                <span className="text-sm font-medium text-surface-900 truncate">{item.title}</span>
+                <span className="text-sm font-medium text-surface-900 truncate">{item.name}</span>
             </div>
         </div>
     )

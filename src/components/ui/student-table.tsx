@@ -14,6 +14,7 @@ import {
 import {Check, Eye, Loader2, Trash2, Undo, X} from "lucide-react"
 import {Skeleton} from "@/components/ui/skeleton"
 import type {Student, StudentAssignment} from "@/types/types.ts";
+import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 
 type Status = 0 | 1 | 2
 
@@ -145,11 +146,10 @@ const MultipleAssignmentsDialog = ({ student, onUpdate, onDelete }: MultipleAssi
                         <Card key={index} className="p-4">
                             <div className="flex items-center justify-between">
                                 <div className="space-y-2">
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-center w-full gap-2">
                                         <h4 className="font-medium">{assignment.stopName}</h4>
                                         {getStatusBadge(assignment.status)}
                                     </div>
-                                    <p className="text-sm text-muted-foreground">Stop ID: {assignment.stopId}</p>
                                 </div>
                                 <div className={ "hidden sm:flex sm:items-center sm:gap-2"}>
                                 <AssignmentActions
@@ -167,7 +167,7 @@ const MultipleAssignmentsDialog = ({ student, onUpdate, onDelete }: MultipleAssi
     )
 }
 
-const TableSkeleton = () => {
+export const TableSkeleton = () => {
     return (
         <div className="rounded-md border">
             <div className="overflow-x-auto">
@@ -252,8 +252,9 @@ export const StudentTable = ({
             {/* Desktop Table */}
             <div className="hidden xl:block rounded-md border">
                 <div className="overflow-x-auto">
+                    <ScrollArea className={"max-h-[400px]"}>
                     <Table>
-                        <TableHeader>
+                        <TableHeader className={"bg-muted"}>
                             <TableRow>
                                 <TableHead className="min-w-[120px]">Username</TableHead>
                                 <TableHead className="min-w-[150px]">Name</TableHead>
@@ -325,11 +326,13 @@ export const StudentTable = ({
                             )}
                         </TableBody>
                     </Table>
+                    </ScrollArea>
                 </div>
             </div>
 
             {/* Mobile Cards */}
-            <div className="xl:hidden space-y-4">
+            <div className="xl:hidden space-y-4 max-h-[400px] overflow-y-auto">
+                <ScrollArea className={"max-h-[400px]"}>
                 {filteredStudents.length === 0 ? (
                     <Card>
                         <CardContent className="p-6 text-center text-muted-foreground">
@@ -403,6 +406,7 @@ export const StudentTable = ({
                         </Card>
                     ))
                 )}
+                </ScrollArea>
             </div>
         </>
     )

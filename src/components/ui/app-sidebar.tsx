@@ -1,11 +1,12 @@
-import {Calendar, Inbox, Search, Settings, UsersRoundIcon} from "lucide-react"
+import {HouseIcon, LayoutListIcon, Search, Settings, UsersRoundIcon} from "lucide-react"
 
 import {
     Sidebar,
     SidebarContent,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel, SidebarHeader,
+    SidebarGroupLabel,
+    SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
@@ -15,19 +16,19 @@ import {ModeToggle} from "@/components/global/mode-toggle.tsx";
 // Menu items.
 const items = [
     {
+        title: "Home",
+        url: "/",
+        icon: HouseIcon,
+    },
+    {
         title: "Students",
         url: "/students",
         icon: UsersRoundIcon,
     },
     {
-        title: "Inbox",
-        url: "#",
-        icon: Inbox,
-    },
-    {
-        title: "Calendar",
-        url: "#",
-        icon: Calendar,
+        title: "StopGroups",
+        url: "/stopgroups",
+        icon: LayoutListIcon,
     },
     {
         title: "Search",

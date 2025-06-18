@@ -95,7 +95,7 @@ export default function Students() {
     }, [students, isLoading])
 
     return (
-        <div className="container mx-auto py-4 px-4 sm:py-6 space-y-4 sm:space-y-6">
+        <div className="container mt-8 mx-auto py-4 px-4 sm:py-6 space-y-4 sm:space-y-6">
             <div className="space-y-2">
                 <h1 className="text-2xl sm:text-3xl font-bold">Student Assignment Management</h1>
                 <p className="text-muted-foreground text-sm sm:text-base">

@@ -7,14 +7,14 @@ import {Button} from "@/components/ui/button"
 import type {Stop} from "@/types/types.ts";
 
 interface SortableStopItemProps {
-    stop: Stop
+    stop: Stop & { uid: string }
     onRemove: () => void
     isMobile?: boolean
 }
 
 export function SortableStopItem({ stop, onRemove, isMobile = false }: SortableStopItemProps) {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-        id: stop.id,
+        id: stop.uid,
         data: {
             type: "stop",
             stop,
@@ -31,7 +31,7 @@ export function SortableStopItem({ stop, onRemove, isMobile = false }: SortableS
         <div
             ref={setNodeRef}
             style={style}
-            className="flex items-center justify-between p-3 bg-surface-50 rounded-lg border border-surface-200 hover:bg-surface-100 hover:border-surface-300 transition-all duration-200 group animate-fade-in"
+            className="flex items-center justify-between p-3 bg-muted/20 rounded-lg border border-border hover:bg-muted/40 transition-all duration-200 group animate-fade-in"
         >
             <div className="flex items-center gap-3 flex-1 min-w-0">
                 <button

@@ -5,15 +5,20 @@ import { CSS } from "@dnd-kit/utilities"
 import { ChevronDown, ChevronUp, GripVertical, Info, Layers } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import type { StopGroup } from "@/types/types.ts"
+import type { StopGroup, Stop } from "@/types/types.ts"
 import { SortableStopList } from "./sortable-stop-list"
 import { useDroppable } from "@dnd-kit/core"
 import {useEffect} from "react";
 
+interface StopGroupWithStops extends StopGroup {
+    stops: (Stop & { uid: string })[]
+    isExpanded: boolean
+}
+
 interface CollapsibleSectionProps {
-    group: StopGroup
+    group: StopGroupWithStops
     onToggleExpansion: (groupId: number) => void
-    onRemoveStop: (stopId: string) => void
+    onRemoveStop: (stopUid: string) => void
     isMobile?: boolean
 }
 
@@ -66,7 +71,7 @@ export function CollapsibleSection({
         <Card
             ref={setNodeRef}
             style={style}
-            className="bg-gradient-to-br from-accent-50 to-accent-100/50 border-accent-200 shadow-sm hover:shadow-md transition-all duration-200 drop-zone animate-fade-in"
+            className="bg-card border-border shadow-sm hover:shadow-md transition-all duration-200 drop-zone animate-fade-in"
         >
             <CardHeader className="pb-3">
                 <div className={`flex items-start gap-4 ${isMobile ? "flex-col" : "justify-between"}`}>
@@ -102,12 +107,12 @@ export function CollapsibleSection({
 
             {group.isExpanded && (
                 <CardContent className="pt-0 animate-slide-up">
-                    <div className="bg-white rounded-lg p-4 border border-accent-200/50 shadow-inner">
+                    <div className="bg-muted/50 rounded-lg p-4 border border-border shadow-inner">
                         <h4 className="text-base font-medium text-surface-900 mb-4 flex items-center">
                             <Layers className="w-4 h-4 mr-2 text-accent-600" />
                             Stops
                         </h4>
-                        <SortableStopList stops={} groupId={group.id} onRemoveStop={onRemoveStop} isMobile={isMobile} />
+                        <SortableStopList stops={group.stops} onRemoveStop={onRemoveStop} isMobile={isMobile} />
                     </div>
                 </CardContent>
             )}

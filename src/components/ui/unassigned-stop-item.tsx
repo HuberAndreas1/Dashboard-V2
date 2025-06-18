@@ -4,10 +4,10 @@ import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { GripVertical, Info } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import type { StopItem } from "@/app/page"
+import type { Stop } from "@/types/types.ts"
 
 interface UnassignedStopItemProps {
-    stop: StopItem
+    stop: Stop
     isMobile?: boolean
 }
 
@@ -36,7 +36,7 @@ export function UnassignedStopItem({ stop, isMobile = false }: UnassignedStopIte
 >
     <div className="flex items-center gap-3 flex-1 min-w-0">
     <GripVertical className="h-4 w-4 text-surface-400 group-hover:text-surface-500 transition-colors" />
-    <span className="text-sm font-medium text-surface-900 truncate">{stop.title}</span>
+    <span className="text-sm font-medium text-surface-900 truncate">{stop.name}</span>
         </div>
         <Button size="sm" className="bg-accent-600 hover:bg-accent-700 text-white shadow-sm">
     <Info className="w-3 h-3 mr-1" />

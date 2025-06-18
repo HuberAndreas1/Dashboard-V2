@@ -20,6 +20,11 @@ const items = [
         icon: UsersRoundIcon,
     },
     {
+        title: "Stop Groups",
+        url: "/stop-groups",
+        icon: Calendar,
+    },
+    {
         title: "Inbox",
         url: "#",
         icon: Inbox,

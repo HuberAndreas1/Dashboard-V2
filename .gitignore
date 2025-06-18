@@ -1,4 +1,4 @@
 /node_modules
 src/vite-env.d.ts
 .env.development
-.env.development
+dist

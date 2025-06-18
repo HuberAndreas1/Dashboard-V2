@@ -1,18 +1,24 @@
 "use client"
 
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
+import { useDroppable } from "@dnd-kit/core"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Filter, Package } from "lucide-react"
-import type { StopItem } from "@/app/page"
+import type { Stop } from "@/types/types.ts"
 import { UnassignedStopItem } from "./unassigned-stop-item"
 
 interface UnassignedStopsProps {
-    stops: StopItem[]
+    stops: Stop[]
     isMobile?: boolean
 }
 
 export function UnassignedStops({ stops, isMobile = false }: UnassignedStopsProps) {
+    const { setNodeRef } = useDroppable({
+        id: "unassigned",
+        data: { type: "group", accepts: ["stop"] },
+    })
+
     return (
         <Card className="bg-card border-border shadow-sm hover:shadow-md transition-all duration-200 animate-fade-in">
             <CardHeader className="pb-3">
@@ -29,7 +35,7 @@ export function UnassignedStops({ stops, isMobile = false }: UnassignedStopsProp
             </CardHeader>
             <CardContent className="pt-0">
                 <SortableContext items={stops.map((stop) => stop.id)} strategy={verticalListSortingStrategy}>
-                    <div className="space-y-3 custom-scrollbar max-h-96 overflow-y-auto">
+                    <div ref={setNodeRef} className="space-y-3 custom-scrollbar max-h-96 overflow-y-auto">
                         {stops.length === 0 ? (
                             <div className="text-center py-8 text-surface-500">
                                 <Package className="w-8 h-8 mx-auto mb-2 text-surface-400" />

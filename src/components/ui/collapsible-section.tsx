@@ -5,15 +5,20 @@ import { CSS } from "@dnd-kit/utilities"
 import { ChevronDown, ChevronUp, GripVertical, Info, Layers } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import type { StopGroup } from "@/types/types.ts"
+import type { StopGroup, Stop } from "@/types/types.ts"
 import { SortableStopList } from "./sortable-stop-list"
 import { useDroppable } from "@dnd-kit/core"
 import {useEffect} from "react";
 
+interface StopGroupWithStops extends StopGroup {
+    stops: Stop[]
+    isExpanded: boolean
+}
+
 interface CollapsibleSectionProps {
-    group: StopGroup
+    group: StopGroupWithStops
     onToggleExpansion: (groupId: number) => void
-    onRemoveStop: (stopId: string) => void
+    onRemoveStop: (stopId: number) => void
     isMobile?: boolean
 }
 
@@ -107,7 +112,7 @@ export function CollapsibleSection({
                             <Layers className="w-4 h-4 mr-2 text-accent-600" />
                             Stops
                         </h4>
-                        <SortableStopList stops={} groupId={group.id} onRemoveStop={onRemoveStop} isMobile={isMobile} />
+                        <SortableStopList stops={group.stops} onRemoveStop={onRemoveStop} isMobile={isMobile} />
                     </div>
                 </CardContent>
             )}

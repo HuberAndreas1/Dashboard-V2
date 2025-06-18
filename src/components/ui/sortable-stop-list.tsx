@@ -7,12 +7,11 @@ import { SortableStopItem } from "./sortable-stop-item"
 
 interface SortableStopListProps {
     stops: Stop[]
-    groupId: string
     onRemoveStop: (stopId: number) => void
     isMobile?: boolean
 }
 
-export function SortableStopList({ stops, groupId, onRemoveStop, isMobile = false }: SortableStopListProps) {
+export function SortableStopList({ stops, onRemoveStop, isMobile = false }: SortableStopListProps) {
     if (stops.length === 0) {
         return (
             <div className="text-center py-8 text-surface-500 border-2 border-dashed border-surface-200 rounded-lg bg-surface-50/50 drop-zone">
